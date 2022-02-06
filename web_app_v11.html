@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<style>
+		body {
+			background-color: #e6f3ff;
+			margin-top: 2%;
+			margin-left: 5%;
+			margin-right: 5%;
+			margin-bottom: 5%;
+		}
+		table {
+			width: 90%;
+		}
+		p {
+			width: 90%;
+		}
+		hr {
+			width: 90%;
+		}
+	</style>
+
+	<script>
+	/* 	My summary of official KCCQ-12 scoring methodology
+		
+		Physical Limitation Domain
+		1a-1c - treat '6' as a non-response
+				if one non-response then calculate as average of other scores
+				but if more than one non-response then don't compute the score
+				Score is zero through four times 25
+				
+		Symptoms Domain
+		2-5 - 	If responses to three or more questions are missing, no score is computed
+				otherwise calculate as average of other scores
+				Score is zero through four times 25 for Qs 2 and 5
+				Score is zero through six times (100 / 6) for Qs 3 and 4
+		
+		QOL Domain
+		6-7 - 	If responses to both questions are missing, no score is computed
+				but if one non-response then calculate as average of other scores (i.e., the other score)
+				Score is zero through four times 25
+				
+		Social Limitation Domain
+		8a-8c - treat '6' as a non-response
+				if one non-response then calculate as average of other scores
+				but if more than one non-response then don't compute the score
+				Score is zero through four times 25
+		
+		- need flags for each Q and each domain --> use bools and set them to False
+		- Special case for '6' on Q 1a-1c and Q 8a-8c --> non-response, flip a Q bit
+		- Which questions do we have a non-response for? --> flip a Q bit
+		- How many non-responses total in a domain? --> Add the Q bits in that domain
+		- Is number of non-responses over the threshold for the domain? --> don't calculate score for domain, flip a D bit
+		- Which domains are excluded from overall score? --> exclude the ones with D bits == -1
+		*/
+		
+		const domains = [-1, -1, -1, -1];			/* array for the four domain scores */
+		const physicalScores = [-1, -1, -1];  		/* array for physical limitation domain question scores */
+		const symptomsScores = [-1, -1, -1, -1];	/* array for symptoms domain question scores */
+		const QOLScores = [-1, -1];					/* array for quality of life domain question scores */
+		const socialScores = [-1, -1, -1];			/* array for social limitation domain question scores */
+		var finalScore
+				
+		function main() {
+			/* window.alert('calling main()'); */
+			document.getElementById('display').value="";
+			scoring();  	/* checks radio buttons, and puts proper score in each domain's array if a button is checked */
+			tallyScore(); 	/* calls calcDomainScore() for each domain and sends it the applicable scoring rule */
+			overallScore();	/* loops through domain array and applies rules to calculate overall score*/
+			document.getElementById('display').value=finalScore;
+		}
+		
+		function overallScore() {
+			/* loop through domains and determine average of non-blank scores */
+			/* value of '-1' is blanks */
+			var domainsSubtotal = 0;
+			var domainsQAns = 0;
+			for (var i = 0; i < domains.length; i++) {
+				if (domains[i] == -1) {}
+				else {
+					domainsSubtotal += domains[i];
+					domainsQAns += 1;
+				}
+			finalScore = domainsSubtotal / domainsQAns; /* WHAT IF DIVIDE BY ZERO ????? */
+			}
+		}
+		
+		function tallyScore() {
+			/* window.alert('calling tallyScore()'); */
+			/* loops through each of the four domains, and calls calcDomainScore on it*/
+			/* by passing the domain's name, its index number in domains array, */
+			/* and the rule for the minimum Qs that must be answered in order */
+			/* to score that domain */
+			for (var i = 0; i < domains.length; i++) {
+				switch(i) {
+					case 0:
+						calcDomainScore(physicalScores, 0, 2);
+						break;
+					case 1:
+						calcDomainScore(symptomsScores, 1, 1);
+						break;
+					case 2:
+						calcDomainScore(QOLScores, 2, 1);
+						break;
+					case 3:
+						calcDomainScore(socialScores, 3, 2);
+						break;
+				}
+			}
+		}
+		
+		function calcDomainScore(domainName, index, rule) {
+			/* Takes (a) a domain's array name, (b) that domain's index number */
+			/* in the domains array, and (c) the rule for the minimum number of Qs
+			/* that must be answered to score the domain ==> this function calculates */
+			/* the domain's score unless the rule is not fulfilled */
+			var subtotal = 0;
+			var QAns = 0;  	/* number of questions answered */
+			for (var i = 0; i < domainName.length; i++) { 	/* loop through Qs in domain */
+				if (domainName[i] == -1) {}	/* if -1, the Q was unanswered */
+				else {
+					subtotal += domainName[i];
+					QAns += 1;
+				}
+			}
+			if (QAns >= rule) {
+				domains[index] = subtotal / QAns;  /* update the main domains array with the score only
+													if enough questions have been answered for that 
+													domain under the KCCQ-12 scoring rules */
+			}
+		}
+		
+		function scoring() {
+			/* window.alert('callingscoring()'); */
+			/* loops through for every question and rescales the score according to */
+			/* the official KCCQ-12 scoring methodology */
+		
+			/* Physical Domain Start */
+			
+			/* Question 1a */
+			for (var i=0; i < document.form1.shower.length; i++) {
+				if (document.form1.shower[i].checked) {
+					if (document.form1.shower[i].value == 5) {}
+					else {
+					physicalScores[0] = document.form1.shower[i].value * 25;
+					/* window.alert('showerScore = ' + showerScore); */
+					}
+				}
+			}		
+			
+			/* Question 1b */
+			for (var i=0; i < document.form1.walk.length; i++) {
+				if (document.form1.walk[i].checked) {
+					if (document.form1.walk[i].value == 5) {}
+					else {
+						physicalScores[1] = document.form1.walk[i].value * 25;
+					}	
+				}
+			}
+			
+			/* Question 1c */
+			for (var i=0; i < document.form1.hurry.length; i++) {
+				if (document.form1.hurry[i].checked) {
+					if (document.form1.hurry[i].value == 5) {}
+					else {
+						physicalScores[2] = document.form1.hurry[i].value * 25;
+					}
+				}
+			}
+			
+			/* window.alert('physicalDomain = ' + physicalDomain); */
+			/* Physical Domain End */
+			
+			/* Symptoms Domain Start */
+
+			/* Question 2 */
+			for (var i=0; i < document.form1.swell.length; i++) {
+				if (document.form1.swell[i].checked) {
+					symptomsScores[0] = document.form1.swell[i].value * 25;
+				}
+			}
+						
+			/* Question 3 */
+			for (var i=0; i < document.form1.fatigue.length; i++) {
+				if (document.form1.fatigue[i].checked) {
+					symptomsScores[1] = document.form1.fatigue[i].value * 100 / 6;
+				}
+			}			
+			
+			/* Question 4 */
+			for (var i=0; i < document.form1.shortness.length; i++) {
+				if (document.form1.shortness[i].checked) {
+					symptomsScores[2] = document.form1.shortness[i].value * 100 / 6;
+				}
+			}			
+			
+			/* Question 5 */
+			for (var i=0; i < document.form1.sleep_sit.length; i++) {
+				if (document.form1.sleep_sit[i].checked) {
+					symptomsScores[3] = document.form1.sleep_sit[i].value * 25;
+				}
+			}			
+			
+			/* Symptoms Domain End */
+			
+			/* Quality of Life Domain Start */
+			
+			/* Question 6 */
+			for (var i=0; i < document.form1.enjoy.length; i++) {
+				if (document.form1.enjoy[i].checked) {
+					QOLScores[0] = document.form1.enjoy[i].value * 25;
+				}
+			}			
+			/* Question 7 */
+			for (var i=0; i < document.form1.rest_life.length; i++) {
+				if (document.form1.rest_life[i].checked) {
+					QOLScores[1] = document.form1.rest_life[i].value * 25;
+				}
+			}			
+			
+			/* Quality of Life Domain End */
+			
+			/* Social Limitation Domain Start */
+			
+			/* Question 8a */
+			for (var i=0; i < document.form1.hobby.length; i++) {
+				if (document.form1.hobby[i].checked) {
+					if (document.form1.hobby[i].value == 5) {}
+					else {
+						socialScores[0] = document.form1.hobby[i].value * 25;
+					}
+				}
+			}			
+			
+			/* Question 8b */
+			for (var i=0; i < document.form1.work.length; i++) {
+				if (document.form1.work[i].checked) {
+					if (document.form1.work[i].value == 5) {}
+					else {
+						socialScores[1] = document.form1.work[i].value * 25;
+					}
+				}
+			}
+									
+			/* Question 8c */
+			for (var i=0; i < document.form1.visit.length; i++) {
+				if (document.form1.visit[i].checked) {
+					if (document.form1.visit[i].value == 5) {}
+					else {
+						socialScores[2] = document.form1.visit[i].value * 25;
+					}
+				}
+			}
+			/* Social Limitation Domain End */
+		}
+	</script>
+</head>
+<body>
+<h1>Kansas City Cardiomyopathy Questionnaire (KCCQ-12)</h1>
+<p>The following questions refer to your <b>heart failure</b> and how it may affect your life. Please read and complete the following
+questions. There are no right or wrong answers. Please mark the answer that best applies to you.</p>
+<form onsubmit="main()" class="form1" name="form1">
+	<p>1. <b>Heart failure</b> affects different people in different ways. Some feel shortness of breath while others feel fatigue. Please
+	indicate how much you are limited by <b>heart failure</b> (shortness of breath or fatigue) in your ability to do the following
+	activities <u>over the past 2 weeks</u>.</p>
+	<table>
+		<tr>
+			<td><b>Activity</b></td>
+			<td><b>Extremely</b><br>Limited</td>
+			<td><b>Quite a bit</b><br>Limited</td>
+			<td><b>Moderately</b><br>Limited</td>
+			<td><b>Slightly</b><br>Limited</td>
+			<td><b>Not at all</b><br>Limited</td>
+			<td><b>Limited for<br>other reasons<br>or did not do<br>the activity</b></td>
+		<tr>
+		<tr>
+			<hr align="left">
+		</tr>
+		<tr>
+			<td>a. Showering/bathing</td>
+			<td><input type="radio" id="shower_extremely" name="shower" value="0"></td>
+			<td><input type="radio" id="shower_quite" name="shower" value="1"></td>
+			<td><input type="radio" id="shower_moderately" name="shower" value="2"></td>
+			<td><input type="radio" id="shower_slightly" name="shower" value="3"></td>
+			<td><input type="radio" id="shower_not_limited" name="shower" value="4"></td>
+			<td><input type="radio" id="shower_other" name="shower" value="5"></td>
+			
+		</tr>
+		<tr>
+			<td>b. Walking 1 block on<br>level ground</td>
+			<td><input type="radio" id="walk_extremely" name="walk" value="0"></td>
+			<td><input type="radio" id="walk_quite" name="walk" value="1"></td>
+			<td><input type="radio" id="walk_moderately" name="walk" value="2"></td>
+			<td><input type="radio" id="walk_slightly" name="walk" value="3"></td>
+			<td><input type="radio" id="walk_not_limited" name="walk" value="4"></td>
+			<td><input type="radio" id="walk_other" name="walk" value="5"></td>
+		</tr>
+		<tr>
+			<td>c. Hurrying or jogging<br>(as if to catch a bus)</td>
+			<td><input type="radio" id="hurry_extremely" name="hurry" value="0"></td>
+			<td><input type="radio" id="hurry_quite" name="hurry" value="1"></td>
+			<td><input type="radio" id="hurry_moderately" name="hurry" value="2"></td>
+			<td><input type="radio" id="hurry_slightly" name="hurry" value="3"></td>
+			<td><input type="radio" id="hurry_not_limited" name="hurry" value="4"></td>
+			<td><input type="radio" id="hurry_other" name="hurry" value="5"></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+			<td>4</td>
+			<td>5</td>
+			<td>6</td>
+			
+		</tr>
+	</table>
+	<hr align="left">
+	<p>2. Over the <u>past 2 weeks</u>, how many times did you have <b>swelling</b> in your feet, ankles or legs when you woke up in the
+	morning?</p>
+	<table>
+		<tr>
+			<td>Every morning</td>
+			<td>3 or more times<br>per week but<br>not every day</td>
+			<td>1-2 times per week</td>
+			<td>Less than<br>once a week</td>
+			<td>Never over the<br>past 2 weeks</td>
+		</tr>
+		<tr>
+			<td><input type="radio" id="swell_every" name="swell" value="0"></td>
+			<td><input type="radio" id="swell_3_more" name="swell" value="1"></td>
+			<td><input type="radio" id="swell_1-2" name="swell" value="2"></td>
+			<td><input type="radio" id="swell_less_than" name="swell" value="3"></td>
+			<td><input type="radio" id="swell_never" name="swell" value="4"></td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+			<td>4</td>
+			<td>5</td>
+		</tr>
+	</table>
+	<hr align="left">
+	<p>3. Over the <u>past 2 weeks</u>, how many times did you have <b>fatigue</b> limited your ability to do what you
+	wanted?</p>
+	<table>
+		<tr>
+			<td>All of<br>the time</td>
+			<td>Several times<br>per day</td>
+			<td>At least<br>once a day</td>
+			<td>3 or more times<br>per week but<br>not every day</td>
+			<td>1-2 times per week</td>
+			<td>Less than<br>once a week</td>
+			<td>Never over the<br>past 2 weeks</td>
+		</tr>
+		<tr>
+			<td><input type="radio" id="fatigue_all" name="fatigue" value="0"></td>
+			<td><input type="radio" id="fatigue_several" name="fatigue" value="1"></td>
+			<td><input type="radio" id="fatigue_once" name="fatigue" value="2"></td>
+			<td><input type="radio" id="fatigue_3_more" name="fatigue" value="3"></td>
+			<td><input type="radio" id="fatigue_1-2" name="fatigue" value="4"></td>
+			<td><input type="radio" id="fatigue_less_than" name="fatigue" value="5"></td>
+			<td><input type="radio" id="fatigue_never" name="fatigue" value="6"></td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+			<td>4</td>
+			<td>5</td>
+			<td>6</td>
+			<td>7</td>
+		</tr>
+	</table>
+	<hr align="left">
+	<p>4. Over the <u>past 2 weeks</u>, how many times did you have <b>shortness of breath</b> limited your ability to do what you
+	wanted?</p>
+	<table>
+		<tr>
+			<td>All of<br>the time</td>
+			<td>Several times<br>per day</td>
+			<td>At least<br>once a day</td>
+			<td>3 or more times<br>per week but<br>not every day</td>
+			<td>1-2 times per week</td>
+			<td>Less than<br>once a week</td>
+			<td>Never over the<br>past 2 weeks</td>
+		</tr>
+		<tr>
+			<td><input type="radio" id="shortness_all" name="shortness" value="0"></td>
+			<td><input type="radio" id="shortness_several" name="shortness" value="1"></td>
+			<td><input type="radio" id="shortness_once" name="shortness" value="2"></td>
+			<td><input type="radio" id="shortness_3_more" name="shortness" value="3"></td>
+			<td><input type="radio" id="shortness_1-2" name="shortness" value="4"></td>
+			<td><input type="radio" id="shortness_less_than" name="shortness" value="5"></td>
+			<td><input type="radio" id="shortness_never" name="shortness" value="6"></td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+			<td>4</td>
+			<td>5</td>
+			<td>6</td>
+			<td>7</td>
+		</tr>
+	</table>
+	<hr align="left">
+	<p>5. Over the <u>past 2 weeks</u>, how many times have you been forced to sleep sitting up in a chair or with at
+	least 3 pillows to prop you up because of <b>shortness of breath?</b></p>
+	<table>
+		<tr>
+			<td>Every morning</td>
+			<td>3 or more times<br>per week but<br>not every day</td>
+			<td>1-2 times per week</td>
+			<td>Less than<br>once a week</td>
+			<td>Never over the<br>past 2 weeks</td>
+		</tr>
+		<tr>
+			<td><input type="radio" id="sleep_sit_every" name="sleep_sit" value="0"></td>
+			<td><input type="radio" id="sleep_sit_3_more" name="sleep_sit" value="1"></td>
+			<td><input type="radio" id="sleep_sit_1-2" name="sleep_sit" value="2"></td>
+			<td><input type="radio" id="sleep_sit_less" name="sleep_sit" value="3"></td>
+			<td><input type="radio" id="sleep_sit_never" name="sleep_sit" value="4"></td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+			<td>4</td>
+			<td>5</td>
+		</tr>
+	</table>
+	<hr align="left">
+	<p>6. Over the <u>past 2 weeks</u>, how much has your <b>heart failure</b> limited your enjoyment of life?</p>
+	<table>
+		<tr>
+			<td>It has <b>extremely</b><br>limited my enjoyment<br>of life</td>
+			<td>It has limited my<br>enjoyment of life<br><b>quite a bit</b></td>
+			<td>It has <b>moderately</b><br>limited my enjoyment<br>of life</td>
+			<td>It has <b>slightly</b><br>limited my enjoyment<br>of life</td>
+			<td>It has <b>not limited</b><br>my enjoyment<br>of life at all</td>
+		</tr>
+		<tr>
+			<td><input type="radio" id="enjoy_extremely" name="enjoy" value="0"></td>
+			<td><input type="radio" id="enjoy_quite" name="enjoy" value="1"></td>
+			<td><input type="radio" id="enjoy_moderately" name="enjoy" value="2"></td>
+			<td><input type="radio" id="enjoy_slightly" name="enjoy" value="3"></td>
+			<td><input type="radio" id="enjoy_not" name="enjoy" value="4"></td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+			<td>4</td>
+			<td>5</td>
+		</tr>
+	</table>
+	<hr align="left">
+	<p>7. If you had to spend the rest of your life with your <b>heart failure</b> the way it is <u>right now</u>, how would you feel about this?</p>
+	<table>
+		<tr>
+			<td>Not at all<br>satisfied</td>
+			<td>Mostly<br>dissatisfed</td>
+			<td>Fairly<br>satisfied</td>
+			<td>Mostly<br>satisfed</td>
+			<td>Completely<br>satisfed</td>
+		</tr>
+		<tr>
+			<td><input type="radio" id="rest_life_not" name="rest_life" value="0"></td>
+			<td><input type="radio" id="rest_life_mostly_dis" name="rest_life" value="1"></td>
+			<td><input type="radio" id="rest_life_fairly" name="rest_life" value="2"></td>
+			<td><input type="radio" id="rest_life_mostly_sat" name="rest_life" value="3"></td>
+			<td><input type="radio" id="rest_life_completely" name="rest_life" value="4"></td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+			<td>4</td>
+			<td>5</td>
+		</tr>
+	</table>
+	<hr align="left">
+	<p>The following questions refer to your <b>heart failure</b> and how it may affect your life. Please read and complete the following
+	questions. There are no right or wrong answers. Please mark the answer that best applies to you.</p>
+	<p>8. How much does your <b>heart failure</b> affect your lifestyle? Please indicate how your <b>heart failure</b> may have limited your
+	participation in the following activities <u>over the past 2 weeks</u>.</p>
+	<table>
+		<tr>
+			<td><b>Activity</b></td>
+			<td><b>Extremely</b><br>Limited</td>
+			<td><b>Quite a bit</b><br>Limited</td>
+			<td><b>Moderately</b><br>Limited</td>
+			<td><b>Slightly</b><br>Limited</td>
+			<td><b>Not at all</b><br>Limited</td>
+			<td><b>Limited for<br>other reasons<br>or did not do<br>the activity</b></td>
+		<tr>
+		<tr>
+			<hr align="left">
+		</tr>
+		<tr>
+			<td>a. Hobbies, recreational<br>activities</td>
+			<td><input type="radio" id="hobby_extremely" name="hobby" value="0"></td>
+			<td><input type="radio" id="hobby_quite" name="hobby" value="1"></td>
+			<td><input type="radio" id="hobby_moderately" name="hobby" value="2"></td>
+			<td><input type="radio" id="hobby_slightly" name="hobby" value="3"></td>
+			<td><input type="radio" id="hobby_not_limited" name="hobby" value="4"></td>
+			<td><input type="radio" id="hobby_other" name="hobby" value="5"></td>
+			
+		</tr>
+		<tr>
+			<td>b. Working or doing<br>household chores</td>
+			<td><input type="radio" id="work_extremely" name="work" value="0"></td>
+			<td><input type="radio" id="work_quite" name="work" value="1"></td>
+			<td><input type="radio" id="work_moderately" name="work" value="2"></td>
+			<td><input type="radio" id="work_slightly" name="work" value="3"></td>
+			<td><input type="radio" id="work_not_limited" name="work" value="4"></td>
+			<td><input type="radio" id="work_other" name="work" value="5"></td>
+		</tr>
+		<tr>
+			<td>c. Visiting family or<br>friends out of your<br>home</td>
+			<td><input type="radio" id="visit_extremely" name="visit" value="0"></td>
+			<td><input type="radio" id="visit_quite" name="visit" value="1"></td>
+			<td><input type="radio" id="visit_moderately" name="visit" value="2"></td>
+			<td><input type="radio" id="visit_slightly" name="visit" value="3"></td>
+			<td><input type="radio" id="visit_not_limited" name="visit" value="4"></td>
+			<td><input type="radio" id="Visit_other" name="visit" value="5"></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+			<td>4</td>
+			<td>5</td>
+			<td>6</td>
+		</tr>
+	</table>
+	<hr align="left">
+	<input type="button" value="Click to get your score" onclick='main()'>
+	<input class="display" type="text" name="display" id="display" size="30" disabled>
+</form>
+</body>
+</html>
