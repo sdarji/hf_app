@@ -21,6 +21,10 @@
 		html {
 			scroll-behavior: smooth;
 		}
+		#display_result {
+			margin-left: 10px;
+			font-size: 30px;
+		}
 	</style>
 
 	<script>
@@ -63,11 +67,13 @@
 				
 		function main() {
 			/* window.alert('calling main()'); */
-			document.getElementById('display').value="";
+			document.getElementById('display_result').innerHTML = "";
+			/* document.getElementById('display').value=""; */
 			scoring();  	/* checks radio buttons, and puts proper score in each domain's array if a button is checked */
 			tallyScore(); 	/* calls calcDomainScore() for each domain and sends it the applicable scoring rule */
 			overallScore();	/* loops through domain array and applies rules to calculate overall score*/
-			document.getElementById('display').value=finalScore;
+			document.getElementById('display_result').innerHTML = finalScore;
+			/* document.getElementById('display').value=finalScore; */
 			resetData()
 		}
 		
@@ -85,7 +91,7 @@
 			}
 			
 			if (domainsQAns != 0) {
-				finalScore = Math.round(domainsSubtotal / domainsQAns); 
+				finalScore = "Your Score is " + Math.round(domainsSubtotal / domainsQAns); 
 			} else {		/* WHAT IF DIVIDE BY ZERO ????? */
 				finalScore = "Need more responses to calculate score";
 			}
@@ -262,6 +268,7 @@
 		
 		function resetForm() {
 			/* reset form (includes display window) */
+			document.getElementById("display_result").innerHTML = "";
 			document.getElementById("form1").reset();
 			/* reset data arrays */
 			resetData()
@@ -569,8 +576,11 @@
 			</tr>
 		</table>
 		<hr align="left">
-		<p><input type="button" value="Click to get your score" onclick='main()'>
-		<input class="display" type="text" name="display" id="display" size="33" disabled></p>
+		<p>
+			<input type="button" value="Click to get your score" onclick='main()'>
+			<!-- <input class="display" type="text" color="black" name="display" id="display" size="33" disabled> -->
+			<b id="display_result"></b>
+		</p>
 		<p><input type="button" value="Reset form" onclick='resetForm()'></p>
 	</form>
 </body>
