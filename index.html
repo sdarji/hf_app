@@ -29,14 +29,14 @@
 			font-size: 30px;
 		}
 		[type='button'] {
-			width: 120px;
+			width: 125px;
 			height: 150%;
 			font-size: 20px;
 			color: black;
 			background-color: #99ff99;
 		}
 		#reset {
-			width: 10%;
+			width: 115px;
 			height: 110%;
 			font-size: 15px;
 			color: red;
@@ -594,12 +594,12 @@
 			</tr>
 		</table>
 		<hr align="left">
-		<p>
+		<div id="button-div"><p>
 			<input type="button" value="Get score" onclick='main()'>
 			<!-- <input class="display" type="text" color="black" name="display" id="display" size="33" disabled> -->
 			<b id="display_result"></b>
-		</p>
-		<p><input type="button" id="reset" value="Reset form" onclick='resetForm()'></p>
+		</p></div>
+		<div id="button-div"><p><input type="button" id="reset" value="Reset form" onclick='resetForm()'></p></div>
 	</form>
 </body>
 </html>
