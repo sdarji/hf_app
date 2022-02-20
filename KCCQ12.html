@@ -35,13 +35,7 @@
 			color: black;
 			background-color: #99ff99;
 		}
-		#reset {
-			width: 115px;
-			height: 110%;
-			font-size: 15px;
-			color: red;
-			background-color: #99ff99;
-		}
+		
 	</style>
 
 	<script>
@@ -289,7 +283,7 @@
 			document.getElementById("display_result").innerHTML = "";
 			document.getElementById("form1").reset();
 			/* reset data arrays */
-			resetData()
+			resetData();
 			/* scroll to top */
 			document.body.scrollTop = 0;
 			document.documentElement.scrollTop = 0;
@@ -594,12 +588,12 @@
 			</tr>
 		</table>
 		<hr align="left">
-		<div id="button-div"><p>
-			<input type="button" value="Get score" onclick='main()'>
+		<p>
+			<input type="button" value="Get  score" onclick='main()'>
 			<!-- <input class="display" type="text" color="black" name="display" id="display" size="33" disabled> -->
 			<b id="display_result"></b>
-		</p></div>
-		<div id="button-div"><p><input type="button" id="reset" value="Reset form" onclick='resetForm()'></p></div>
+		</p>
+		<p><input type="button" value="Reset form" onclick='resetForm()'></p>
 	</form>
 </body>
 </html>
