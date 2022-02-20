@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!-- 
+	Changelog 
+	v3 - add 
+	v4 - add required = "required" attribute to input/buttons
+	v5 - fix table header
+-->
+<head>
+	<style>
+		body {
+			background-color: #ffffb3;
+			margin-top: 2%;
+			margin-left: 5%;
+			margin-right: 5%;
+			margin-bottom: 5%;
+		}
+		table {
+			width: 90%;
+		}
+		p {
+			width: 90%;
+		}
+		hr {
+			width: 90%;
+		}
+		html {
+			scroll-behavior: smooth;
+		}
+		[type='radio'] {
+			text-align: center;
+		}
+		input:invalid {
+			border: 2px dashed red;
+		}
+		input:invalid:required {
+			background-image: linear-gradient(to right, pink, lightgreen);
+		}
+		input:valid {
+			border: 2px solid black;
+		}
+		#bottom_row {
+			border-bottom:4px solid black;
+		}
+	</style>
+
+	<script>
+		const questionNames = ["Q1","Q2","Q3","Q4","Q5","Q6","Q7"];
+		var pageOneScore = 0;
+		function main() {
+			tallyScore();
+			localStorage.setItem("pageOne", pageOneScore);  /* set the key-value pair for first page score*/
+			var temp = localStorage.getItem("pageOne");
+			console.log("The page one score is " + temp);
+			var nextPage = "MLHFQ-page2.html?" + pageOneScore;
+			console.log("The next page is " + nextPage);
+			window.location.replace(nextPage);
+			window.location.reload();
+		}
+		
+		function tallyScore() {											/* calculate scores */
+			for (var i=0; i < questionNames.length; i++) {  			/* loop through the button groups, Q1, Q2, etc. */
+				var ele = document.getElementsByName(questionNames[i]);
+				for (var j=0; j < ele.length; j++) {					/* loop through each button in a group */
+					if (ele[j].checked) {
+						pageOneScore += Number(ele[j].value);
+					}
+				}
+			}
+		}
+		function resetForm() {
+			/* reset form (includes display window) */
+			document.getElementById("myForm1").reset();
+			resetData();
+			/* scroll to top */
+			document.body.scrollTop = 0;
+			document.documentElement.scrollTop = 0;
+		}
+		
+		function resetData() {      /* reset data variables */
+			/* +++++++ INSERT VARIABLES TO RESET HERE +++++++ */
+			pageOneScore = 0;
+		}		
+	</script>
+</head>
+
+<body>
+	<p style="text-align:center">MINNESOTA LIVING WITH HEART FAILURE<sup>&reg;</sup> QUESTIONNAIRE<p>
+
+	<p>The following questions ask how much your heart failure (heart condition) affected your life during the past month (4 weeks).  After each question, mark the 0, 1, 2, 3, 4 or 5 to show how much your life was affected.  If a question does not apply to you, mark the 0 after that question.</p>
+
+	<form onsubmit="main()" id="myForm1" class="myForm1" name="myForm1">
+		
+		<table>
+			<tr>
+				<td><b>Did your heart failure prevent</b></td><td></td><td></td><td></td><td></td><td></td><td></td>
+			</tr>
+			<tr><td><b>you from living as you wanted during</b></td><td></td><td align="center"><b>Very</b></td><td></td><td></td><td></td><td align="center"><b>Very</b></td></tr>
+			<tr id="bottom_row"><td><b>the past month (4 weeks) by -</b></td><td align="center"><b>No</b></td><td align="center"><b>Little</b></td><td></td><td></td><td></td><td align="center"><b>Much</b></td></tr>
+		
+			<tr>
+				<td>1.  causing swelling in your ankles or legs?</td>
+				<td align=center><input type="radio" name="Q1" value="0" required=></td>
+				<td align=center><input type="radio" name="Q1" value="1"></td>
+				<td align=center><input type="radio" name="Q1" value="2"></td>
+				<td align=center><input type="radio" name="Q1" value="3"></td>
+				<td align=center><input type="radio" name="Q1" value="4"></td>
+				<td align=center><input type="radio" name="Q1" value="5"></td>
+			</tr>
+			<tr align="center">
+				<td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+			</tr>
+			<tr>
+				<td>2.  making you sit or lie down to rest during the day?</td>
+				<td align=center><input type="radio" name="Q2" value="0" required></td>
+				<td align=center><input type="radio" name="Q2" value="1"></td>
+				<td align=center><input type="radio" name="Q2" value="2"></td>
+				<td align=center><input type="radio" name="Q2" value="3"></td>
+				<td align=center><input type="radio" name="Q2" value="4"></td>
+				<td align=center><input type="radio" name="Q2" value="5"></td>
+			</tr>
+			<tr align=center>
+				<td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+			</tr>
+			<tr>
+				<td>3.  making your walking about or climbing stairs difficult?</td>
+				<td align=center><input type="radio" name="Q3" value="0" required></td>
+				<td align=center><input type="radio" name="Q3" value="1"></td>
+				<td align=center><input type="radio" name="Q3" value="2"></td>
+				<td align=center><input type="radio" name="Q3" value="3"></td>
+				<td align=center><input type="radio" name="Q3" value="4"></td>
+				<td align=center><input type="radio" name="Q3" value="5">
+			</tr>
+			<tr align=center>
+				</td><td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+			</tr>
+			<tr>
+				<td>4.  making your working around the house or yard difficult?</td>
+				<td align=center><input type="radio" name="Q4" value="0" required></td>
+				<td align=center><input type="radio" name="Q4" value="1"></td>
+				<td align=center><input type="radio" name="Q4" value="2"></td>
+				<td align=center><input type="radio" name="Q4" value="3"></td>
+				<td align=center><input type="radio" name="Q4" value="4"></td>
+				<td align=center><input type="radio" name="Q4" value="5"></td>
+			</tr>
+			<tr align=center>
+				<td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+			</tr>
+			<tr>
+				<td>5.  making your going places away from home difficult?</td>
+				<td align=center><input type="radio" name="Q5" value="0" required></td>
+				<td align=center><input type="radio" name="Q5" value="1"></td>
+				<td align=center><input type="radio" name="Q5" value="2"></td>
+				<td align=center><input type="radio" name="Q5" value="3"></td>
+				<td align=center><input type="radio" name="Q5" value="4"></td>
+				<td align=center><input type="radio" name="Q5" value="5"></td>
+			</tr>
+			<tr align=center>
+				<td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+			</tr>
+			<tr>
+				<td>6.  making your sleeping well at night difficult?</td>
+				<td align=center><input type="radio" name="Q6" value="0" required></td>
+				<td align=center><input type="radio" name="Q6" value="1"></td>
+				<td align=center><input type="radio" name="Q6" value="2"></td>
+				<td align=center><input type="radio" name="Q6" value="3"></td>
+				<td align=center><input type="radio" name="Q6" value="4"></td>
+				<td align=center><input type="radio" name="Q6" value="5"></td>
+			</tr>
+			<tr align=center>
+				<td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+			</tr>
+			<tr>
+				<td>7.  making your relating to or doing things with your friends or family difficult?</td>
+				<td align=center><input type="radio" name="Q7" value="0" required></td>
+				<td align=center><input type="radio" name="Q7" value="1"></td>
+				<td align=center><input type="radio" name="Q7" value="2"></td>
+				<td align=center><input type="radio" name="Q7" value="3"></td>
+				<td align=center><input type="radio" name="Q7" value="4"></td>
+				<td align=center><input type="radio" name="Q7" value="5"></td>
+			</tr>
+			<tr align=center>
+				<td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+			</tr>
+		</table>
+		
+		<hr align="left">
+		<p><input type="submit" value="Next Page"></p>
+		<p><input type="button" value="Reset form" onclick='resetForm()'></p>
+		<!-- Start over -->
+	</form>
+	<hr align="left">
+	<p><sup>&copy;</sup>1986 Regents of the University of Minnesota, All rights reserved. Do not copy or reproduce without permission. LIVING WITH HEART FAILURE<sup>&reg;</sup> is a registered trademark of the Regents of the University of Minnesota.<p>Used under license from the University of Minnesota.</p>
+</body>
+</html>
