@@ -27,7 +27,7 @@
 		html {
 			scroll-behavior: smooth;
 		}
-		[type='radio'] {
+		[type="radio"] {
 			text-align: center;
 		}
 		input:invalid {
@@ -42,6 +42,13 @@
 		#bottom_row {
 			border-bottom:4px solid black;
 		}
+		[type='button'], [type='submit'] {
+			width: 125px;
+			height: 150%;
+			font-size: 20px;
+			color: black;
+			background-color: #99ff99;
+		}
 	</style>
 
 	<script>
@@ -49,18 +56,21 @@
 		var pageTwoScore = 0;
 		function main() {
 			tallyScore();
-			var pageOneScore = localStorage.getItem("pageOne");
+			if (sessionStorage.getItem("pageOne") != null) {
+				var pageOneScore = sessionStorage.getItem("pageOne");    	// Try to retrieve score from sessionStorage
+			} else {
+				var pageOneScore = window.location.search.substring(1);	// Otherwise get it from url queryString
+			}
 			console.log("The page one score was " + pageOneScore);
 			var runningTotal = parseInt(pageOneScore) + parseInt(pageTwoScore);
-			localStorage.setItem("pageTwo", runningTotal);  /* set the key-value pair for running score */
 			console.log("The page two score is " + pageTwoScore);
-			var temp = localStorage.getItem("pageTwo");
-			console.log("The page two RUNNING score as retrieved is " + temp);
-			console.log("And the running score is " + runningTotal);
+			console.log("And the running score is now " + runningTotal);
+			sessionStorage.setItem("pageTwo", runningTotal);  /* set the key-value pair for running score */
+			console.log("I set the RUNNING score in sessionStorage as " + sessionStorage.getItem("pageTwo"));
 			var nextPage = "MLHFQ-page3.html?" + runningTotal;
 			console.log("The next URL is " + nextPage);
-			window.location.replace(nextPage);
-			window.location.reload();
+			window.location.replace("MLHFQ-page3.html");
+			return false;	// need to return false to keep form from submitting and reloading while still validating input
 		}
 		
 		function tallyScore() {											/* calculate scores */
@@ -88,8 +98,8 @@
 		}
 		function startOver() {
 			resetForm();
-			localStorage.removeItem("pageOneScore");
-			localStorage.removeItem("pageTwoScore");
+			sessionStorage.removeItem("pageOneScore");
+			sessionStorage.removeItem("pageTwoScore");
 			window.location.replace("MLHFQ-page1.html");
 		}
 	</script>
@@ -100,7 +110,7 @@
 
 	<p>The following questions ask how much your heart failure (heart condition) affected your life during the past month (4 weeks).  After each question, mark the 0, 1, 2, 3, 4 or 5 to show how much your life was affected.  If a question does not apply to you, mark the 0 after that question.</p>
 
-	<form onsubmit="main()" id="myForm2" class="myForm2" name="myForm2">
+	<form onSubmit="return main()" id="myForm2" class="myForm2" name="myForm2">
 		
 		<table>
 			<tr>
@@ -197,8 +207,8 @@
 		
 		<hr align="left">
 		<p><input type="submit" value="Next Page"></p>
-		<p><input type="button" value="Reset form" onclick='resetForm()'></p>
-		<p><input type="button" value="Start Over" onclick='startOver()'></p>
+		<p><input type="button" value="Reset form" onclick="resetForm()"></p>
+		<p><input type="button" value="Start Over" onclick="startOver()"></p>
 		<!-- Start over -->
 	</form>
 	<hr align="left">

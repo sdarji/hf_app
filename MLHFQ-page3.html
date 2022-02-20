@@ -55,19 +55,25 @@
 		const questionNames = ["Q15","Q16","Q17","Q18","Q19","Q20","Q21"];
 		var pageThreeScore = 0;
 		function main() {
-			console.log("called main()");
+			document.getElementById("score_button").disabled = true;
 			tallyScore();
-			var finalScore = parseInt(localStorage.getItem("pageTwo")) + pageThreeScore;
-			console.log("The runnning score was " + localStorage.getItem("pageTwo"));
-			console.log("The pageThreeScore is " + pageThreeScore);
-			console.log("And the final score is " + finalScore);
-			var finalDisplay = "Your Score is " + finalScore
+			if (sessionStorage.getItem("pageTwo") != null) {
+				var runningScore = sessionStorage.getItem("pageTwo");    	// Try to retrieve score from sessionStorage
+			} else {
+				var runningScore = window.location.search.substring(1);	// Otherwise get it from url queryString
+			}
+			var finalScore = parseInt(runningScore) + pageThreeScore;
+			console.log("The runnning score was " + sessionStorage.getItem("pageTwo"));
+			console.log("And the pageThreeScore is " + pageThreeScore);
+			console.log("So the final score is " + finalScore);
+			var finalDisplay = "Your Score is " + finalScore;		//concatenate the score announcement
 			document.getElementById('display_result').innerHTML = finalDisplay;
-			console.log("ending main()");
+			sessionStorage.removeItem("pageOneScore");
+			sessionStorage.removeItem("pageTwoScore");
+			return false;	// need to return false to keep form from submitting and reloading while still validating input
 		}
 		
 		function tallyScore() {											/* calculate scores */
-			console.log("called tallyScore()");
 			for (var i=0; i < questionNames.length; i++) {  			/* loop through the button groups, Q1, Q2, etc. */
 				var ele = document.getElementsByName(questionNames[i]);
 				for (var j=0; j < ele.length; j++) {					/* loop through each button in a group */
@@ -78,27 +84,26 @@
 			}
 		}
 		function resetForm() {
-			console.log("called resetForm()");
 			/* reset form (includes display window) */
-			/*document.getElementById("myForm3").reset();*/
+			document.getElementById("myForm3").reset();
 			resetData();
+			document.getElementById('display_result').innerHTML = finalDisplay;  /* update score to be blank */
 			/* scroll to top */
 			document.body.scrollTop = 0;
 			document.documentElement.scrollTop = 0;
+			document.getElementById("score_button").disabled = false;
 		}
 		
 		function resetData() {      /* reset data variables */
-			console.log("called restData()");
 			/* +++++++ INSERT VARIABLES TO RESET HERE +++++++ */
 			pageThreeScore = 0;
 			finalScore = 0;
-			finalDisplay = "";
+			finalDisplay = "";		/* make the score blank */
 		}
 		function startOver() {
-			console.log("called startOver()");
 			resetForm();
-			localStorage.removeItem("pageOneScore");
-			localStorage.removeItem("pageTwoScore");
+			sessionStorage.removeItem("pageOneScore");
+			sessionStorage.removeItem("pageTwoScore");
 			window.location.replace("MLHFQ-page1.html");
 		}
 	</script>
@@ -109,7 +114,7 @@
 
 	<p>The following questions ask how much your heart failure (heart condition) affected your life during the past month (4 weeks).  After each question, mark the 0, 1, 2, 3, 4 or 5 to show how much your life was affected.  If a question does not apply to you, mark the 0 after that question.</p>
 
-	<form id="myForm3" class="myForm3" name="myForm3">
+	<form onSubmit="return main()" id="myForm3" class="myForm3" name="myForm3">
 		
 		<table>
 			<tr>
@@ -206,7 +211,7 @@
 		
 		<hr align="left">
 		<p>
-			<input type="button" value="Get score" onclick="main()" >
+			<input type="submit" value="Get score" id="score_button">
 			<!-- <input class="display" type="text" color="black" name="display" id="display" size="33" disabled> -->
 			<b id="display_result"></b>
 		</p>
