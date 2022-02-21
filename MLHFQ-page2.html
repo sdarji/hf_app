@@ -67,9 +67,10 @@
 			console.log("And the running score is now " + runningTotal);
 			sessionStorage.setItem("pageTwo", runningTotal);  /* set the key-value pair for running score */
 			console.log("I set the RUNNING score in sessionStorage as " + sessionStorage.getItem("pageTwo"));
+			// build page URL with queryString
 			var nextPage = "MLHFQ-page3.html?" + runningTotal;
 			console.log("The next URL is " + nextPage);
-			window.location.replace("MLHFQ-page3.html");
+			window.location.replace(nextPage);
 			return false;	// need to return false to keep form from submitting and reloading while still validating input
 		}
 		
@@ -106,7 +107,7 @@
 </head>
 
 <body>
-	<p style="text-align:center">MINNESOTA LIVING WITH HEART FAILURE<sup>&reg;</sup> QUESTIONNAIRE<p>
+	<p style="text-align:center">MINNESOTA LIVING WITH HEART FAILURE<sup>&reg;</sup> QUESTIONNAIRE</p>
 
 	<p>The following questions ask how much your heart failure (heart condition) affected your life during the past month (4 weeks).  After each question, mark the 0, 1, 2, 3, 4 or 5 to show how much your life was affected.  If a question does not apply to you, mark the 0 after that question.</p>
 
@@ -114,14 +115,19 @@
 		
 		<table>
 			<tr>
-				<td><b>Did your heart failure prevent</b></td><td></td><td></td><td></td><td></td><td></td><td></td>
+				<td><b>Did your heart failure prevent<br></b></td><td></td><td></td><td></td><td></td><td></td><td></td>
 			</tr>
-			<tr><td><b>you from living as you wanted during</b></td><td></td><td align="center"><b>Very</b></td><td></td><td></td><td></td><td align="center"><b>Very</b></td></tr>
-			<tr id="bottom_row"><td><b>the past month (4 weeks) by -</b></td><td align="center"><b>No</b></td><td align="center"><b>Little</b></td><td></td><td></td><td></td><td align="center"><b>Much</b></td></tr>
+			<tr>
+				<td><b>you from living as you wanted during</b></td><td></td><td></td><td align="center"></td><td></td><td></td><td></td><td align="center"></td>
+			</tr>
+			<tr id="bottom_row">
+				<td><b>the past month (4 weeks) by -</b></td><td align="center" valign="bottom"><b>No</b></td><td>&nbsp;</td><td align="center"><b>Very<br>Little</b></td><td></td><td></td><td></td><td align="center"><b>Very<br>Much</b></td>
+			</tr>
 		
 			<tr>
-				<td>8.  making your working to earn a living difficult</td>
+				<td>8.&nbsp;&nbsp;making your working to earn a living difficult</td>
 				<td align=center><input type="radio" name="Q8" value="0" required></td>
+				<td>&nbsp;</td>
 				<td align=center><input type="radio" name="Q8" value="1"></td>
 				<td align=center><input type="radio" name="Q8" value="2"></td>
 				<td align=center><input type="radio" name="Q8" value="3"></td>
@@ -129,11 +135,12 @@
 				<td align=center><input type="radio" name="Q8" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td></td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 			<tr>
-				<td>9.  making your recreational pastimes, sports, or hobbies difficult?</td>
+				<td>9.&nbsp;&nbsp;making your recreational pastimes, sports, or hobbies difficult?</td>
 				<td align=center><input type="radio" name="Q9" value="0" required></td>
+				<td>&nbsp;</td>
 				<td align=center><input type="radio" name="Q9" value="1"></td>
 				<td align=center><input type="radio" name="Q9" value="2"></td>
 				<td align=center><input type="radio" name="Q9" value="3"></td>
@@ -141,11 +148,12 @@
 				<td align=center><input type="radio" name="Q9" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td></td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 			<tr>
-				<td>10.  making your sexual activities difficult?</td>
+				<td>10.&nbsp;&nbsp;making your sexual activities difficult?</td>
 				<td align=center><input type="radio" name="Q10" value="0" required></td>
+				<td>&nbsp;</td>
 				<td align=center><input type="radio" name="Q10" value="1"></td>
 				<td align=center><input type="radio" name="Q10" value="2"></td>
 				<td align=center><input type="radio" name="Q10" value="3"></td>
@@ -153,11 +161,12 @@
 				<td align=center><input type="radio" name="Q10" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td></td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 			<tr>
-				<td>11.  making you eat less of the foods you like?</td>
+				<td>11.&nbsp;&nbsp;making you eat less of the foods you like?</td>
 				<td align=center><input type="radio" name="Q11" value="0" required></td>
+				<td>&nbsp;</td>
 				<td align=center><input type="radio" name="Q11" value="1"></td>
 				<td align=center><input type="radio" name="Q11" value="2"></td>
 				<td align=center><input type="radio" name="Q11" value="3"></td>
@@ -165,11 +174,12 @@
 				<td align=center><input type="radio" name="Q11" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td></td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 			<tr>
-				<td>12.  making you short of breath?</td>
+				<td>12.&nbsp;&nbsp;making you short of breath?</td>
 				<td align=center><input type="radio" name="Q12" value="0" required></td>
+				<td>&nbsp;</td>
 				<td align=center><input type="radio" name="Q12" value="1"></td>
 				<td align=center><input type="radio" name="Q12" value="2"></td>
 				<td align=center><input type="radio" name="Q12" value="3"></td>
@@ -177,11 +187,12 @@
 				<td align=center><input type="radio" name="Q12" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td></td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 			<tr>
-				<td>13.  making you tired, fatigued, or low on energy</td>
+				<td>13.&nbsp;&nbsp;making you tired, fatigued, or low on energy</td>
 				<td align=center><input type="radio" name="Q13" value="0" required></td>
+				<td>&nbsp;</td>
 				<td align=center><input type="radio" name="Q13" value="1"></td>
 				<td align=center><input type="radio" name="Q13" value="2"></td>
 				<td align=center><input type="radio" name="Q13" value="3"></td>
@@ -189,11 +200,12 @@
 				<td align=center><input type="radio" name="Q13" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td></td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 			<tr>
-				<td>14.  making you stay in a hospital?</td>
+				<td>14.&nbsp;&nbsp;making you stay in a hospital?</td>
 				<td align=center><input type="radio" name="Q14" value="0" required></td>
+				<td>&nbsp;</td>
 				<td align=center><input type="radio" name="Q14" value="1"></td>
 				<td align=center><input type="radio" name="Q14" value="2"></td>
 				<td align=center><input type="radio" name="Q14" value="3"></td>
@@ -201,13 +213,13 @@
 				<td align=center><input type="radio" name="Q14" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td></td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 		</table>
 		
 		<hr align="left">
 		<p><input type="submit" value="Next Page"></p>
-		<p><input type="button" value="Reset form" onclick="resetForm()"></p>
+		<p><input type="button" value="Reset Page" onclick="resetForm()"></p>
 		<p><input type="button" value="Start Over" onclick="startOver()"></p>
 		<!-- Start over -->
 	</form>

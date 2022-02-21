@@ -49,6 +49,9 @@
 			color: black;
 			background-color: #99ff99;
 		}
+		input:disabled {
+			background: #808080;
+		}
 	</style>
 
 	<script>
@@ -67,9 +70,13 @@
 			console.log("And the pageThreeScore is " + pageThreeScore);
 			console.log("So the final score is " + finalScore);
 			var finalDisplay = "Your Score is " + finalScore;		//concatenate the score announcement
+			// update the HTML element to add the score announcement:
 			document.getElementById('display_result').innerHTML = finalDisplay;
+			// remove sessionStorage:
 			sessionStorage.removeItem("pageOneScore");
 			sessionStorage.removeItem("pageTwoScore");
+			// confirm sessionStorage removed in colsole:
+			console.log("sessionStorage removed, so pageOneScore and pageTwoScore are now: " + sessionStorage.getItem("pageTwoScore") + " and " + sessionStorage.getItem("pageTwoScore"));
 			return false;	// need to return false to keep form from submitting and reloading while still validating input
 		}
 		
@@ -110,7 +117,7 @@
 </head>
 
 <body>
-	<p style="text-align:center">MINNESOTA LIVING WITH HEART FAILURE<sup>&reg;</sup> QUESTIONNAIRE<p>
+	<p style="text-align:center">MINNESOTA LIVING WITH HEART FAILURE<sup>&reg;</sup> QUESTIONNAIRE</p>
 
 	<p>The following questions ask how much your heart failure (heart condition) affected your life during the past month (4 weeks).  After each question, mark the 0, 1, 2, 3, 4 or 5 to show how much your life was affected.  If a question does not apply to you, mark the 0 after that question.</p>
 
@@ -118,14 +125,19 @@
 		
 		<table>
 			<tr>
-				<td><b>Did your heart failure prevent</b></td><td></td><td></td><td></td><td></td><td></td><td></td>
+				<td><b>Did your heart failure prevent<br></b></td><td></td><td></td><td></td><td></td><td></td><td></td>
 			</tr>
-			<tr><td><b>you from living as you wanted during</b></td><td></td><td align="center"><b>Very</b></td><td></td><td></td><td></td><td align="center"><b>Very</b></td></tr>
-			<tr id="bottom_row"><td><b>the past month (4 weeks) by -</b></td><td align="center"><b>No</b></td><td align="center"><b>Little</b></td><td></td><td></td><td></td><td align="center"><b>Much</b></td></tr>
+			<tr>
+				<td><b>you from living as you wanted during</b></td><td></td><td></td><td align="center"></td><td></td><td></td><td></td><td align="center"></td>
+			</tr>
+			<tr id="bottom_row">
+				<td><b>the past month (4 weeks) by -</b></td><td align="center" valign="bottom"><b>No</b></td><td>&nbsp;</td><td align="center"><b>Very<br>Little</b></td><td></td><td></td><td></td><td align="center"><b>Very<br>Much</b></td>
+			</tr>
 		
 			<tr>
-				<td>15.  costing you money for medical care?</td>
+				<td>15.&nbsp;&nbsp;costing you money for medical care?</td>
 				<td align=center><input type="radio" name="Q15" value="0" required></td>
+				<td>&nbsp;</td>
 				<td align=center><input type="radio" name="Q15" value="1"></td>
 				<td align=center><input type="radio" name="Q15" value="2"></td>
 				<td align=center><input type="radio" name="Q15" value="3"></td>
@@ -133,11 +145,12 @@
 				<td align=center><input type="radio" name="Q15" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td></td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 			<tr>
-				<td>16.  giving you side effects from treatments?</td>
+				<td>16.&nbsp;&nbsp;giving you side effects from treatments?</td>
 				<td align=center><input type="radio" name="Q16" value="0" required></td>
+				<td>&nbsp;</td>
 				<td align=center><input type="radio" name="Q16" value="1"></td>
 				<td align=center><input type="radio" name="Q16" value="2"></td>
 				<td align=center><input type="radio" name="Q16" value="3"></td>
@@ -145,11 +158,12 @@
 				<td align=center><input type="radio" name="Q16" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td></td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 			<tr>
-				<td>17.  making you feel you are a burden to your family or friends?</td>
+				<td>17.&nbsp;&nbsp;making you feel you are a burden to your family or friends?</td>
 				<td align=center><input type="radio" name="Q17" value="0" required></td>
+				<td>&nbsp;</td>
 				<td align=center><input type="radio" name="Q17" value="1"></td>
 				<td align=center><input type="radio" name="Q17" value="2"></td>
 				<td align=center><input type="radio" name="Q17" value="3"></td>
@@ -157,11 +171,12 @@
 				<td align=center><input type="radio" name="Q17" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td></td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 			<tr>
-				<td>18. making you feel a loss of self-control in your life?</td>
+				<td>18.&nbsp;&nbsp;making you feel a loss of self-control in your life?</td>
 				<td align=center><input type="radio" name="Q18" value="0" required></td>
+				<td>&nbsp;</td>
 				<td align=center><input type="radio" name="Q18" value="1"></td>
 				<td align=center><input type="radio" name="Q18" value="2"></td>
 				<td align=center><input type="radio" name="Q18" value="3"></td>
@@ -169,11 +184,12 @@
 				<td align=center><input type="radio" name="Q18" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td></td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 			<tr>
-				<td>19. making you worry?</td>
+				<td>19.&nbsp;&nbsp;making you worry?</td>
 				<td align=center><input type="radio" name="Q19" value="0" required></td>
+				<td>&nbsp;</td>
 				<td align=center><input type="radio" name="Q19" value="1"></td>
 				<td align=center><input type="radio" name="Q19" value="2"></td>
 				<td align=center><input type="radio" name="Q19" value="3"></td>
@@ -181,11 +197,12 @@
 				<td align=center><input type="radio" name="Q19" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td></td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 			<tr>
-				<td>20. making it difficult for you to concentrate or remember things?</td>
+				<td>20.&nbsp;&nbsp;making it difficult for you to concentrate or remember things?</td>
 				<td align=center><input type="radio" name="Q20" value="0" required></td>
+				<td>&nbsp;</td>
 				<td align=center><input type="radio" name="Q20" value="1"></td>
 				<td align=center><input type="radio" name="Q20" value="2"></td>
 				<td align=center><input type="radio" name="Q20" value="3"></td>
@@ -193,11 +210,12 @@
 				<td align=center><input type="radio" name="Q20" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td></td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 			<tr>
-				<td>21. making you feel depressed?</td>
+				<td>21.&nbsp;&nbsp;making you feel depressed?</td>
 				<td align=center><input type="radio" name="Q21" value="0" required></td>
+				<td>&nbsp;</td>
 				<td align=center><input type="radio" name="Q21" value="1"></td>
 				<td align=center><input type="radio" name="Q21" value="2"></td>
 				<td align=center><input type="radio" name="Q21" value="3"></td>
@@ -205,7 +223,7 @@
 				<td align=center><input type="radio" name="Q21" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td></td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 		</table>
 		
