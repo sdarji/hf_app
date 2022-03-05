@@ -28,14 +28,19 @@
 			margin-left: 10px;
 			font-size: 30px;
 		}
-		[type='button'] {
+		[type='button'] {					/* 	Style the reset and get score buttons */
 			width: 125px;
 			height: 150%;
 			font-size: 20px;
 			color: black;
 			background-color: #99ff99;
 		}
-		
+		input[type='radio'] {   			/* 	Make radio buttons bigger */
+		 transform: scale(1.5); 
+		}
+		input[type='radio']:checked {		/* Make radio button larger when checked */
+			transform: scale(2);
+		}
 	</style>
 
 	<script>
@@ -322,7 +327,7 @@
 				<td align="center" valign="bottom"><b>Slightly</b><br>Limited</td>
 				<td align="center" valign="bottom"><b>Not at all</b><br>Limited</td>
 				<td align="center" valign="bottom">Limited for<br>other reasons<br>or did not do<br>the activity</td>
-			<tr>
+			</tr>
 			<tr>
 				<hr align="left">
 			</tr>
@@ -366,8 +371,7 @@
 			</tr>
 		</table>
 		<hr align="left">
-		<p>2. Over the <u>past 2 weeks</u>, how many times did you have <b>swelling</b> in your feet, ankles or legs when you woke up in the
-		morning?</p>
+		<p>2. Over the <u>past 2 weeks</u>, how many times did you have <b>swelling</b> in your feet, ankles or legs when you woke up in the morning?</p>
 		<table>
 			<tr>
 				<td align="center" valign="bottom">Every morning</td>
@@ -545,7 +549,7 @@
 				<td align="center" valign="bottom"><b>Slightly</b><br>Limited</td>
 				<td align="center" valign="bottom"><b>Not at all</b><br>Limited</td>
 				<td align="center" valign="bottom">Limited for<br>other reasons<br>or did not do<br>the activity</td>
-			<tr>
+			</tr>
 			<tr>
 				<hr align="left">
 			</tr>
@@ -589,7 +593,7 @@
 		</table>
 		<hr align="left">
 		<p>
-			<input type="button" value="Get  score" onclick='main()'>
+			<input type="button" value="Get score" onclick='main()'>
 			<!-- <input class="display" type="text" color="black" name="display" id="display" size="33" disabled> -->
 			<b id="display_result"></b>
 		</p>
