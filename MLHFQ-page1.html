@@ -6,8 +6,12 @@
 	v4 - add required = "required" attribute to input/buttons
 	v5 - fix table header
 	v6 - move css and link external stylesheet
+	v7 - add non-breaking spaces in table empty cells: <td>&nbsp;</td>	
 -->
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Heart Failure App</title>
 	<link href="stylesheet_mlhfq.css" rel="stylesheet">
 	<script>
 		const questionNames = ["Q1","Q2","Q3","Q4","Q5","Q6","Q7"];
@@ -20,7 +24,7 @@
 			var nextPage = "MLHFQ-page2.html?" + pageOneScore;
 			console.log("The next page is " + nextPage);
 			window.location.replace(nextPage);
-			return false;	// need to return false to keep form from submitting and reloading while still validating input
+			return false;	/* need to return false to keep form from submitting and reloading while still validating input */
 		}
 		
 		function tallyScore() {											/* calculate scores */
@@ -58,10 +62,14 @@
 		
 		<table>
 			<tr>
-				<td><b>Did your heart failure prevent<br></b></td><td></td><td></td><td></td><td></td><td></td><td></td>
+				<td><b>Did your heart failure prevent<br></b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
 			</tr>
-			<tr><td><b>you from living as you wanted during</b></td><td></td><td></td><td align="center"></td><td></td><td></td><td></td><td align="center"></td></tr>
-			<tr id="bottom_row"><td><b>the past month (4 weeks) by -</b></td><td align="center" valign="bottom"><b>No</b></td><td>&nbsp;</td><td align="center"><b>Very<br>Little</b></td><td></td><td></td><td></td><td align="center"><b>Very<br>Much</b></td></tr>
+			<tr>
+				<td><b>you from living as you wanted during</b></td><td>&nbsp;</td><td>&nbsp;</td><td align="center">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+			</tr>
+			<tr id="bottom_row"><td><b>the past month (4 weeks) by -</b></td><td align="center" valign="bottom">
+				<b>No</b></td><td>&nbsp;</td><td align="center"><b>Very<br>Little</b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td align="center"><b>Very<br>Much</b></td>
+			</tr>
 		
 			<tr>
 				<td>1.&nbsp;&nbsp;causing swelling in your ankles or legs?</td>
@@ -74,7 +82,7 @@
 				<td align=center><input type="radio" name="Q1" value="5"></td>
 			</tr>
 			<tr align="center">
-				<td></td><td align="center">0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td>&nbsp;</td><td align="center">0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 			<tr>
 				<td>2.&nbsp;&nbsp;making you sit or lie down to rest during the day?</td>
@@ -87,7 +95,7 @@
 				<td align=center><input type="radio" name="Q2" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td align="center">0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td>&nbsp;</td><td align="center">0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 			<tr>
 				<td>3.&nbsp;&nbsp;making your walking about or climbing stairs difficult?</td>
@@ -100,7 +108,7 @@
 				<td align=center><input type="radio" name="Q3" value="5">
 			</tr>
 			<tr align=center>
-				</td><td></td><td align="center">0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				</td><td>&nbsp;</td><td align="center">0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 			<tr>
 				<td>4.&nbsp;&nbsp;making your working around the house or yard difficult?</td>
@@ -113,7 +121,7 @@
 				<td align=center><input type="radio" name="Q4" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td align="center">0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td>&nbsp;</td><td align="center">0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 			<tr>
 				<td>5.&nbsp;&nbsp;making your going places away from home difficult?</td>
@@ -126,7 +134,7 @@
 				<td align=center><input type="radio" name="Q5" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td align="center">0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td>&nbsp;</td><td align="center">0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 			<tr>
 				<td>6.&nbsp;&nbsp;making your sleeping well at night difficult?</td>
@@ -139,7 +147,7 @@
 				<td align=center><input type="radio" name="Q6" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td align="center">0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td>&nbsp;</td><td align="center">0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 			<tr>
 				<td>7.&nbsp;&nbsp;making your relating to or doing things with your friends or family difficult?</td>
@@ -152,7 +160,7 @@
 				<td align=center><input type="radio" name="Q7" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td align="center">0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td>&nbsp;</td><td align="center">0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 		</table>
 		

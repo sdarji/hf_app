@@ -6,8 +6,12 @@
 	v4 - add required = "required" attribute to input/buttons
 	v5 - fix table header
 	v6 - move css and link external stylesheet
+	v7 - add non-breaking spaces in table empty cells: <td>&nbsp;</td>
 -->
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Heart Failure App</title>
 	<link href="stylesheet_mlhfq.css" rel="stylesheet">
 	<script>
 		const questionNames = ["Q15","Q16","Q17","Q18","Q19","Q20","Q21"];
@@ -80,10 +84,14 @@
 		
 		<table>
 			<tr>
-				<td><b>Did your heart failure prevent<br></b></td><td></td><td></td><td></td><td></td><td></td><td></td>
+				<td><b>Did your heart failure prevent<br></b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
 			</tr>
-			<tr><td><b>you from living as you wanted during</b></td><td></td><td></td><td align="center"></td><td></td><td></td><td></td><td align="center"></td></tr>
-			<tr id="bottom_row"><td><b>the past month (4 weeks) by -</b></td><td align="center" valign="bottom"><b>No</b></td><td>&nbsp;</td><td align="center"><b>Very<br>Little</b></td><td></td><td></td><td></td><td align="center"><b>Very<br>Much</b></td></tr>
+			<tr>
+				<td><b>you from living as you wanted during</b></td><td>&nbsp;</td><td>&nbsp;</td><td align="center"></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td align="center"></td>
+			</tr>
+			<tr id="bottom_row"><td><b>the past month (4 weeks) by -</b></td><td align="center" valign="bottom">
+				<b>No</b></td><td>&nbsp;</td><td align="center"><b>Very<br>Little</b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td align="center"><b>Very<br>Much</b></td>
+			</tr>
 		
 			<tr>
 				<td>15.&nbsp;&nbsp;costing you money for medical care?</td>
@@ -96,7 +104,7 @@
 				<td align=center><input type="radio" name="Q15" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td>&nbsp;</td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 			<tr>
 				<td>16.&nbsp;&nbsp;giving you side effects from treatments?</td>
@@ -109,7 +117,7 @@
 				<td align=center><input type="radio" name="Q16" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td>&nbsp;</td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 			<tr>
 				<td>17.&nbsp;&nbsp;making you feel you are a burden to your family or friends?</td>
@@ -122,7 +130,7 @@
 				<td align=center><input type="radio" name="Q17" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td>&nbsp;</td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 			<tr>
 				<td>18.&nbsp;&nbsp;making you feel a loss of self-control in your life?</td>
@@ -135,7 +143,7 @@
 				<td align=center><input type="radio" name="Q18" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td>&nbsp;</td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 			<tr>
 				<td>19.&nbsp;&nbsp;making you worry?</td>
@@ -148,7 +156,7 @@
 				<td align=center><input type="radio" name="Q19" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td>&nbsp;</td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 			<tr>
 				<td>20.&nbsp;&nbsp;making it difficult for you to concentrate or remember things?</td>
@@ -161,7 +169,7 @@
 				<td align=center><input type="radio" name="Q20" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td>&nbsp;</td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 			<tr>
 				<td>21.&nbsp;&nbsp;making you feel depressed?</td>
@@ -174,7 +182,7 @@
 				<td align=center><input type="radio" name="Q21" value="5"></td>
 			</tr>
 			<tr align=center>
-				<td></td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+				<td>&nbsp;</td><td>0</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
 			</tr>
 		</table>
 		
