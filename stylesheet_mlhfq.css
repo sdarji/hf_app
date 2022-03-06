@@ -1,0 +1,50 @@
+body {
+	background-color: #ffffb3;
+	margin-top: 2%;
+	margin-center: 5%;
+	margin-right: 5%;
+	margin-bottom: 5%;
+}
+table {
+	width: 90%;
+}
+p {
+	width: 90%;
+}
+hr {
+	width: 90%;
+}
+html {
+	scroll-behavior: smooth;
+}
+[type="radio"] {
+	text-align: center;
+}
+input:invalid {
+	border: 2px dashed red;
+}
+input:invalid:required {
+	background-image: linear-gradient(to right, pink, lightgreen);
+}
+input:valid {
+	border: 2px solid black;
+}
+#bottom_row {
+	border-bottom:4px solid black;
+}
+[type='button'], [type='submit'] {
+	width: 125px;
+	height: 150%;
+	font-size: 20px;
+	color: black;
+	background-color: #99ff99;
+}
+input[type='radio'] {   			/* 	Make radio buttons bigger */
+	 transform: scale(1.5); 
+}
+input[type='radio']:checked {		/* Make radio button larger when checked */
+	transform: scale(2);
+}
+input:disabled {					/* Disables input button after event:submit */
+	background: #808080;
+}
