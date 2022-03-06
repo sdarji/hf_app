@@ -8,6 +8,7 @@ body {
 table {
 	width: 90%;
 	empty-cells: show;
+	border-spacing: 5px;	/* keep middle buttons from crowding each other */
 }
 p {
 	width: 90%;
