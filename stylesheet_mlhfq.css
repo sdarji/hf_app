@@ -7,6 +7,7 @@ body {
 }
 table {
 	width: 90%;
+	empty-cells: show;
 }
 p {
 	width: 90%;
