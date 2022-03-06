@@ -8,7 +8,11 @@ body {
 table {
 	width: 90%;
 	empty-cells: show;
-	border-spacing: 5px;	/* keep middle buttons from crowding each other */
+}
+th, td {				/* Keep radio buttons from crowding each other */
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 p {
 	width: 90%;
